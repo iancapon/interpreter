@@ -1,0 +1,4 @@
+mate a = 13
+mate b = 23
+mate c = a * 15
+yerba c
