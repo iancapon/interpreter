@@ -1,0 +1,10 @@
+# calculo de raices reales 
+# para funcion cuadratica  en ".toro"
+a = 1
+b = 0
+c = - 9
+resolvente = ( - 4 * a * c ) ^ 0.5
+xleft = ( resolvente ) / ( 2 * a )
+xright = ( - resolvente ) / ( 2 * a )
+yerba xleft
+yerba xright
