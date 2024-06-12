@@ -1,0 +1,8 @@
+i=0
+condicion i menor 10
+    i=i+1
+    j = 0
+    mostrar i
+    mostrar j
+cerrar
+mostrar i
