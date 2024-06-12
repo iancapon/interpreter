@@ -1,0 +1,14 @@
+x=11
+y=(2 mayor 1)*4
+condicion x mayor y
+    mostrar(x-y)
+    condicion x-y mayor 5
+        mostrar (x-y -5)*10
+    cerrar
+cerrar
+condicion x menor y
+    mostrar y
+cerrar
+condicion x igual y
+    mostrar x
+cerrar

@@ -1,0 +1,12 @@
+i=0
+wid=5
+hei=10
+bucle i menor wid
+    j =0
+    bucle j menor hei
+        mostrar i *hei+ j 
+        j= j + 1
+    cerrar
+    i=i+1
+cerrar
+mostrar i*(hei-1) +wid

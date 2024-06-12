@@ -1,0 +1,14 @@
+neg=0-1
+div=1
+pi= 4/div
+mostrar pi
+############### EN CADA ITERACION SE ACERCA MÁS Y MÁS A PI
+maxIter=100000
+bucle div menor 1+2*(maxIter-1)
+    div=div+2
+    pi=pi+ neg*4 /div
+    neg=neg*(0-1)
+    mostrar pi
+cerrar
+#dif=pi-3.141692
+#mostrar (0-1)*dif
