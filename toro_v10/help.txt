@@ -1,7 +1,7 @@
 PARA CORRER EL ARCHIVO xyz.toro QUE DEBE ESTAR EN ESTA CARPETA:
-python3 toroScript/toro.py pruebas.toro
+python3 toroScript/toro.py pruebas.toro ###EN WINDOWS VA SOLO python ; LINUX/ MAC VA python3
 
-EJEMPLO DE CÓDIGO:
+#EJEMPLO DE CÓDIGO:
 x= (10+20)*3/2 -4
 z=x/2
 y=input #para este ejemplo ingresá un numero
