@@ -1,0 +1,9 @@
+n=0-1
+x = ((0-3)*30)^2
+
+condicion x mayor 8000
+    mostrar "anashee xd"
+cerrar
+
+
+mostrar x
