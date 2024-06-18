@@ -1,0 +1,7 @@
+#funcion hola:(x,y)
+#1+1
+#retorno x*2
+
+#mostrar hola :(10,20)
+
+mostrar 10 + 20 * 30
