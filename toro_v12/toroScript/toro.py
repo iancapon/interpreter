@@ -8,13 +8,11 @@ if(len(sys.argv)>=2):#### leer programas
     archivo=open(sys.argv[1],'r')
     sourceCode=archivo.read()
     tokens=lexer(sourceCode)
-    
     parser(tokens)
-    #print(tokens)
-    #visualize(tokens[0],"")
+    visualize(tokens[0],"")
+    #print(tokens[0][1])
     stack={}
     runProgram(tokens[0],stack)
-    #print(stack)
     
 else: ### consola
     stack={}

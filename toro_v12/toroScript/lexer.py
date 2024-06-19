@@ -74,11 +74,17 @@ def lexer(text):
             flag=0
         i+=1
     i=0
-    operations=[",",":","+","-","*","/","^","%","@","!","menor","mayor","igual","=","sin","cos","tan","atan"]
+    
+    #operations=[",",":","+","-","*","/","^","%","@","!","menor","mayor","igual","=","sin","cos","tan","atan"]
+    infix=["+","-","*","/","^","%","menor","mayor","igual","="]
+    prefix=["sin","cos","tan","atan"]
     reservedActions=["bucle","condicion","mostrar","cerrar","funcion","retorno"]
+    ###############
     while i < len(tokens):
-        if(tokens[i] in operations):
-            tokens[i]=("operation",tokens[i])
+        if(tokens[i] in infix):
+            tokens[i]=("infix",tokens[i])
+        elif(tokens[i] in prefix):
+            tokens[i]=("prefix",tokens[i])
         elif(tokens[i] in reservedActions):
             tokens[i]=("action",tokens[i])
         elif(tipo(tokens[i][0])=="number"):
@@ -95,6 +101,20 @@ def lexer(text):
             del tokens[i]
             i-=1
         i+=1
+        
+    i=0 
+    while i< len(tokens):
+        turn=False
+        if(tokens[i][1]=="-"):
+            if(i==0):
+                turn=True
+            else:
+                if(tokens[i-1][0]!="number" and tokens[i-1][0]!="expr"):
+                    turn=True
+        if turn:
+            tokens[i]=("prefix","--")############################################# EL NEGATIVO COMO PREFIJO
+        i+=1
+            
     return tokens
 
 

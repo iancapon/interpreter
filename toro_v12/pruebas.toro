@@ -1,3 +1,6 @@
-a=0-1
-mostrar (a+20)/4
-mostrar 19/4
+i=0
+bucle i menor 10
+    i=i+1
+    mostrar i
+cerrar
+

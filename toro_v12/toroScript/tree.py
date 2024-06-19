@@ -1,13 +1,12 @@
 def visualize(tree,sangria):
-    key=tree[0]
-    space=" "*(len(str(key))+1)
-    print(sangria+">>"+str(key)+"{")
-    for branch in tree[1]:
-        if(type(branch)==str):
-            print(sangria+space+" <<"+branch+">>")
-        elif(type(branch)==tuple):
-            print(sangria+space+" <<"+str(branch)+">>")
-        else:
-            visualize(branch,space+sangria)
-    print(sangria+"   "+str(key)+"}")
+    trunk=tree[0]
+    if(trunk=="\n"):
+        trunk="linea"
+    branch=tree[1]
+    print(sangria+trunk+":")
+    if type(branch) is list:
+        for aux in branch:
+            visualize(aux,sangria+4*" ")
+    else:
+        print(sangria+4*" "+"  <<"+str(branch)+">>")
 
