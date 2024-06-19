@@ -51,7 +51,11 @@ def parseLine(tokens):
                 stack.append(tokens[i])
             del tokens[i]
             i-=1
-        elif(tokens[i][0]=="action" or tokens[i][0]=="prefix"):
+        elif(tokens[i][0]=="prefix"):
+            stack.append(tokens[i])
+            del tokens[i]
+            i-=1
+        elif(tokens[i][0]=="action"):
             stack.append(tokens[i])
             del tokens[i]
             i-=1
@@ -108,8 +112,11 @@ def scopeBrackets(lines,start,end):
                     aux.append(lines[x][0])
                     x+=1
 
-                lines[a][0][1].append(("\n",aux))
+                lines[a][0][1].append(("\n",aux))############ ACÁ
                 
+                if(lines[i][0][0] == "retorno"):
+                    lines[a][0][1].append(lines[x][0])####### PONER EL RETORNO
+                    
                 del lines[a+1:i+1] #### BORRO DEL CUERPO EXTERIOR
                 i-=i-a
         i+=1
@@ -130,7 +137,7 @@ def parser(tokens):
         
     tokens.append(("\n",[]))
 
-    scopeBrackets(lines,["bucle","condicion"],["cerrar"])
+    scopeBrackets(lines,["bucle","condicion","funcion"],["cerrar","retorno"])
     
     for l in lines:
         #print(l[0])

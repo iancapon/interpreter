@@ -28,6 +28,9 @@ def runProgram(tree,stack):
         for branch in branches:
             runProgram(branch,stack)
             
+    if(trunk=="funcion"):
+        stack[branches[0][1]]=((branches[1],branches[2][1][0]))
+        
     if(trunk=="condicion"):
             scope=copy(stack)
             cond=runProgram(branches[0],stack)
@@ -62,6 +65,10 @@ def runProgram(tree,stack):
             leaf=stack.get(branches)
             if(leaf==None):
                 leaf="ERROR"
+            if type(leaf) is tuple:#### TENGO UNA FUNCION
+                scope={}
+                runProgram(leaf[0],scope)
+                leaf=runProgram(leaf[1],scope)
     if(trunk=="+"):
         a=runProgram(branches[0],stack)
         b=runProgram(branches[1],stack)
