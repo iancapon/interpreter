@@ -17,6 +17,13 @@ def matchV(x,y):
             x[dicList[i][0]]=dicList[i][1]
         i+=1
 
+def mult(a,b):
+    if(type(a) is str and type(b) is float):
+        b=int(b)
+    elif(type(b) is str and type(a) is float):
+        a=int(a)
+    return a*b
+
 def runProgram(tree,stack):
     leaf=0
     trunk=tree[0]
@@ -68,9 +75,10 @@ def runProgram(tree,stack):
             if(leaf==None):
                 leaf="ERROR"
             if type(leaf) is tuple:#### TENGO UNA SUB-RUTINA
-                scope={}
+                scope=copy(stack)
                 runProgram(leaf[0],scope)
                 leaf=runProgram(leaf[1],scope)
+                matchV(stack,scope)
                 
 
     if(trunk==":"):### EXPRESION CON ARGUMENTOS
@@ -81,21 +89,20 @@ def runProgram(tree,stack):
             if(leaf==None):
                 leaf="ERROR"
             if type(leaf) is list:#### TENGO UNA FUNCION
-                scope={}
+                scope=copy(stack)
                 if type(leaf[0]) is list:### más de un argumento
                     varNames=(leaf[0])
                     varValues=(branches[1][1])
                     n=0
-                    #print(len(varNames))
                     while n <  len(varNames):
-                        scope[varNames[n][1]]=runProgram(varValues[n],scope)
-                        n+=1
+                        scope[varNames[n][1]]=runProgram(varValues[n],stack)
+                        n+=1#### argumento
                 else:
-                    scope[leaf[0]]=runProgram(branches[1],scope)#### argumento
+                    scope[leaf[0]]=runProgram(branches[1],stack)#### argumento
                 ##################
                 runProgram(leaf[1],scope)#### programa
                 leaf=runProgram(leaf[2],scope) #### retorno
-                
+                matchV(stack,scope)
 
     if(trunk=="+"):
         a=runProgram(branches[0],stack)
@@ -104,7 +111,7 @@ def runProgram(tree,stack):
     if(trunk=="*"):
         a=runProgram(branches[0],stack)
         b=runProgram(branches[1],stack)
-        leaf=a*b
+        leaf=mult(a,b)
     if(trunk=="-"):
         a=runProgram(branches[0],stack)
         b=runProgram(branches[1],stack)

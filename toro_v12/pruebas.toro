@@ -1,10 +1,13 @@
-funcion anashe (bottom,top)
-    i=bottom
+funcion aux (bottom, top, width, symbol)
+retorno bottom*symbol+" "*width+symbol*(top-bottom)
+
+funcion anashe (i,top)
     bucle i menor top
-        mostrar i
+        mostrar aux:i,top,6,"$"
         i=i+1
     cerrar
-retorno i
+retorno aux:i,top,6,"$"
 
-mostrar "Funcion:"
-mostrar (anashe:0,5) *3
+mostrar "'BOCA':"
+x=15
+mostrar (anashe:0,x)
