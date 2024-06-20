@@ -7,13 +7,15 @@ from tree import *
 if(len(sys.argv)>=2):#### leer programas
     archivo=open(sys.argv[1],'r')
     sourceCode=archivo.read()
-    tokens=lexer(sourceCode)
-    parser(tokens)
-    visualize(tokens[0],"")
-    #print(tokens[0][1])
-    stack={}
-    runProgram(tokens[0],stack)
-    
+    tokens,errors=lexer(sourceCode)
+    if(errors > 0):
+        errors=parser(tokens)
+        if(errors > 0):
+            visualize(tokens[0],"")
+            stack={}
+            runProgram(tokens[0],stack)
+    if errors <= 0:
+        print("ERROR")
 else: ### consola
     stack={}
     while True:

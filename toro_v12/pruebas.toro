@@ -1,11 +1,10 @@
-funcion anashe
-    i=0
-    bucle i menor 10
+funcion anashe (bottom,top)
+    i=bottom
+    bucle i menor top
         mostrar i
         i=i+1
     cerrar
 retorno i
 
-mostrar anashe
-mostrar ""
-mostrar anashe
+mostrar "Funcion:"
+mostrar (anashe:0,5) *3

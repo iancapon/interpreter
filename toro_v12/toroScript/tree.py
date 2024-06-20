@@ -3,7 +3,7 @@ def visualize(tree,sangria):
     if(trunk=="\n"):
         trunk="linea"
     branch=tree[1]
-    print(sangria+trunk+":")
+    print(sangria+"["+trunk+"]:")
     if type(branch) is list:
         for aux in branch:
             visualize(aux,sangria+4*" ")

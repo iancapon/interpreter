@@ -20,16 +20,17 @@ def matchV(x,y):
 def runProgram(tree,stack):
     leaf=0
     trunk=tree[0]
-    #print("...")
-    #print(tree)
     branches=tree[1]
     
     if(trunk=="\n"):
         for branch in branches:
             runProgram(branch,stack)
             
-    if(trunk=="funcion"):
+    if(trunk=="subrutina"):
         stack[branches[0][1]]=((branches[1],branches[2][1][0]))
+
+    if(trunk=="funcion"):
+        stack[branches[0][1]]=[branches[1][1],branches[2],branches[3][1][0]]
         
     if(trunk=="condicion"):
             scope=copy(stack)
@@ -37,7 +38,6 @@ def runProgram(tree,stack):
             if(cond==1):
                 runProgram(branches[1],scope)
             matchV(stack,scope)
-        ################
         
     if(trunk=="bucle"):
         scope=copy(stack)
@@ -47,6 +47,7 @@ def runProgram(tree,stack):
         
     if(trunk=="mostrar"):
         print(runProgram(branches[0],stack))
+
     if(trunk=="="):
         a=branches[0][1]
         b=runProgram(branches[1],stack)
@@ -61,14 +62,41 @@ def runProgram(tree,stack):
             leaf=input().strip()
             if re.match(r'[+|-]?[0-9]*\.[0-9]+', leaf) or re.match(r'[+|-]?[0-9]+',leaf):
                 leaf=float(leaf)
-        else:
+
+        elif(branches!="input"):
             leaf=stack.get(branches)
             if(leaf==None):
                 leaf="ERROR"
-            if type(leaf) is tuple:#### TENGO UNA FUNCION
+            if type(leaf) is tuple:#### TENGO UNA SUB-RUTINA
                 scope={}
                 runProgram(leaf[0],scope)
                 leaf=runProgram(leaf[1],scope)
+                
+
+    if(trunk==":"):### EXPRESION CON ARGUMENTOS
+        if(branches[0]=="input"):
+            leaf="ERROR"
+        elif(branches[0]!="input"):
+            leaf=stack.get(branches[0][1])
+            if(leaf==None):
+                leaf="ERROR"
+            if type(leaf) is list:#### TENGO UNA FUNCION
+                scope={}
+                if type(leaf[0]) is list:### más de un argumento
+                    varNames=(leaf[0])
+                    varValues=(branches[1][1])
+                    n=0
+                    #print(len(varNames))
+                    while n <  len(varNames):
+                        scope[varNames[n][1]]=runProgram(varValues[n],scope)
+                        n+=1
+                else:
+                    scope[leaf[0]]=runProgram(branches[1],scope)#### argumento
+                ##################
+                runProgram(leaf[1],scope)#### programa
+                leaf=runProgram(leaf[2],scope) #### retorno
+                
+
     if(trunk=="+"):
         a=runProgram(branches[0],stack)
         b=runProgram(branches[1],stack)

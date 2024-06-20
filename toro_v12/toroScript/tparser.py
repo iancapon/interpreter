@@ -17,8 +17,12 @@ def topof(stack):
     else:
         return ("empty","null")
 
-def power(x):
-    bPower={"+":10,"*":20,"-":10,"/":20,"\n":1,"null":0,"=":5,"mostrar":5,"mayor":50,"menor":50,"igual":50,"^":30,"%":20,"--":45,"(":0,")":0,"sin":40,"cos":40,"tan":40,"atan":40}
+def power(x):##### mientras mayor el binding power, antes se junta... excepto los parentesis
+    bPower={"+":10,"*":20,"-":10,"/":20,"\n":1,
+            "null":0,"=":5,":":6,",":7,"mostrar":5,
+            "mayor":50,"menor":50,"igual":50,"^":30,
+            "%":20,"--":45,"(":0,")":0,"sin":40,
+            "cos":40,"tan":40,"atan":40}
     ret=bPower.get(x[1])
     if (ret!=None):
         return ret
@@ -69,15 +73,36 @@ def parseLine(tokens):
     ########################## EJECUTO, O ARMO ARBOL
     i=0
     while i < len(output):
-        if(output[i][0]=="infix"):
+        if(output[i][0]=="infix" and output[i][1]==","):#### commma separated values
+            branch=()
+            if(output[i-2][0]==","):
+                branch=(output[i][1],[])
+                for x in output[i-2][1]:
+                    branch[1].append(x)
+                branch[1].append(output[i-1])
+            else:
+                branch=(output[i][1],[output[i-2],output[i-1]])
+            del output[i-2:i+1]
+            i-=2
+            output.insert(i,branch)
+        elif(output[i][0]=="infix"):
             branch=(output[i][1],[output[i-2],output[i-1]])
             del output[i-2:i+1]
             i-=2
             output.insert(i,branch)
-        elif(output[i][0]=="action" or output[i][0]=="prefix"):
+        elif(output[i][0]=="prefix"):#output[i][0]=="action" or 
             branch=(output[i][1],[output[i-1]])
             del output[i-1:i+1]
             i-=1
+            output.insert(i,branch)
+        elif(output[i][0]=="action"):
+            branch=(output[i][1],[])
+            l=len(output)-1
+            while l > 0:
+                branch[1].append(output[i-l])
+                l-=1
+            del output[i-(len(output)-1):i+1]
+            i-=len(output)-1
             output.insert(i,branch)
         i+=1
     tokens.append(output[0])
@@ -124,6 +149,7 @@ def scopeBrackets(lines,start,end):
     return None
     
 def parser(tokens):
+    errors=1
     lines=[]
     i=0
     lines.append([])
@@ -137,14 +163,9 @@ def parser(tokens):
         
     tokens.append(("\n",[]))
 
-    scopeBrackets(lines,["bucle","condicion","funcion"],["cerrar","retorno"])
+    scopeBrackets(lines,["bucle","condicion","subrutina","funcion"],["cerrar","retorno"])
     
     for l in lines:
-        #print(l[0])
         tokens[0][1].append(l[0])
-    #print((lines[1][0][1][1][1]))
-        
     
-   
-        
-    #tokens.append(("\n",lines))
+    return errors

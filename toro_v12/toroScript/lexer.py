@@ -14,6 +14,7 @@ def tipo(c):
     else:
         return "notValid"
 def lexer(text):
+    errors=1
     tokens=[]
     lines=text.split('\n')
     i=0
@@ -76,9 +77,9 @@ def lexer(text):
     i=0
     
     #operations=[",",":","+","-","*","/","^","%","@","!","menor","mayor","igual","=","sin","cos","tan","atan"]
-    infix=["+","-","*","/","^","%","menor","mayor","igual","="]
+    infix=["+","-","*","/","^","%","menor","mayor","igual","=",":",","]
     prefix=["sin","cos","tan","atan"]
-    reservedActions=["bucle","condicion","mostrar","cerrar","funcion","retorno"]
+    reservedActions=["bucle","condicion","mostrar","cerrar","funcion","retorno","subrutina"]
     ###############
     while i < len(tokens):
         if(tokens[i] in infix):
@@ -115,7 +116,7 @@ def lexer(text):
             tokens[i]=("prefix","--")############################################# EL NEGATIVO COMO PREFIJO
         i+=1
             
-    return tokens
+    return tokens,errors
 
 
 
