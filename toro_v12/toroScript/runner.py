@@ -81,14 +81,32 @@ def runProgram(tree,stack):
                 matchV(stack,scope)
                 
 
-    if(trunk==":"):### EXPRESION CON ARGUMENTOS
-        if(branches[0]=="input"):
-            leaf="ERROR"
-        elif(branches[0]!="input"):
+    if(trunk==":"):################################################ EXPRESION CON ARGUMENTOS
+        resFunct=["grupo","pincho","empujo","quito"]###### FUNCIONES DEL LENGUAJE
+        if(branches[0][1]=="input"):
+            leaf="ERROR, input no va acá"
+        elif(branches[0][1] in resFunct):
+            args=runProgram(branches[1],stack)
+            if(branches[0][1] == "grupo"):
+                leaf=args
+            if(branches[0][1] == "pincho"):
+                args=runProgram(branches[1],stack)
+                if type(args[0]) is list:
+                    arr=args[0]
+                    leaf=arr[int(args[1])]
+            if(branches[0][1] == "empujo"):
+                args=runProgram(branches[1],stack)
+                if type(args[0]) is list:
+                    args[0].append(args[1])
+            if(branches[0][1] == "quito"):
+                args=runProgram(branches[1],stack)
+                leaf=args.pop()
+        ################################################ TENGO UNA FUNCION
+        elif branches[0][1] not in resFunct:
             leaf=stack.get(branches[0][1])
             if(leaf==None):
-                leaf="ERROR"
-            if type(leaf) is list:#### TENGO UNA FUNCION
+                leaf="ERROR, not found"
+            if type(leaf) is list:
                 scope=copy(stack)
                 if type(leaf[0]) is list:### más de un argumento
                     varNames=(leaf[0])
@@ -161,6 +179,10 @@ def runProgram(tree,stack):
         a=runProgram(branches[0],stack)
         #b=runProgram(branches[1],stack)
         leaf=(-1)*a
+    if(trunk==","):
+        leaf=[]
+        for arg in branches:
+            leaf.append(runProgram(arg,stack))
     
     
     return leaf

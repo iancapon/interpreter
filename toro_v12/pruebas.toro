@@ -1,13 +1,5 @@
-funcion aux (bottom, top, width, symbol)
-retorno bottom*symbol+" "*width+symbol*(top-bottom)
+lista = grupo:(1,"anshe")
+empujo:(lista,"hola")
+mostrar pincho:lista,2
 
-funcion anashe (i,top)
-    bucle i menor top
-        mostrar aux:i,top,6,"$"
-        i=i+1
-    cerrar
-retorno aux:i,top,6,"$"
-
-mostrar "'BOCA':"
-x=15
-mostrar (anashe:0,x)
+# grupo, pincho, empujo, quito

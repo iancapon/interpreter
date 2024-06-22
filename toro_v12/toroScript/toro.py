@@ -14,6 +14,7 @@ if(len(sys.argv)>=2):#### leer programas
             visualize(tokens[0],"")
             stack={}
             runProgram(tokens[0],stack)
+            #print(stack)
     if errors <= 0:
         print("ERROR")
 else: ### consola
@@ -21,9 +22,10 @@ else: ### consola
     while True:
         print("<t> ",end="")
         text=input()
-        if(text!="0"):
+        if(text!="exit"):
             tokens=lexer(text)
-            parser(tokens)
-            print(runProgram(tokens[0][1][0],stack))
+            parseLine(tokens[0])
+            print(runProgram(tokens[0][0],stack))
         else:
             break
+

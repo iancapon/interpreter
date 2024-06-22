@@ -102,6 +102,7 @@ def convertToReversePolishNotation(tokens):
     return output
 
 def ensembleTree(output,tokens):
+    print(output)
     ########################## EJECUTO, O ARMO ARBOL
     i=0
     while i < len(output):
